@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XML Generator Online</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="static/source/icon2.png" type="image/png">
+    <link rel="stylesheet" href="static/css/style.css">
+    <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+{% verbatim %}
+    <div id="app"v-on:mousemove = "targetMouseX">
+        <div v-if="dheader == true">
+            <h1>{{message}}</h1>
+            <div class="l" v-on:click="lol">
+                Click on me {{message}}
+            </div>
+            <div>
+                Upload Image
+                <input type="file" v-on:change="onFileSelected">
+            </div>
+            <div>
+                Default class name: 
+                <input type="text" name="" id="default_class_name" value="name" v-model="dft_class" v-on:input="changeWait">
+            </div>
+            <h3 v-if="debug" v-on:click="debugSw" style="text-decoration: none">Debug Panel</h3>
+            <h3 v-else v-on:click="debugSw" style="text-decoration: line-through">Debug Panel</h3>
+        </div>
+        <transition name="fade">
+            <div v-show="debug">
+                <b>X :</b> {{xPos}} <br>
+                <b>Y :</b> {{yPos}} <br>
+                <b>width :</b> {{width}} <br>
+                <b>heigth :</b> {{height}} <br>
+                <b>mouse x :</b> {{mousex}} <br>
+                <b>mouse y :</b> {{mousey}} <br>
+                <b>old width :</b> {{old_width}} <br>
+                <b>old height y :</b> {{old_width*scale}} <br>
+                <b>mode :</b> {{mode}} <br>
+                <b>keybind :</b> {{keybind}}<br>
+                <h2><a href="/api/opt">API Options</a></h2>
+                <h2><a href="/api/bbox">API Bboxes</a></h2>
+                <h2><a href="/admin">ADMIN</a></h2>
+            </div>
+        </transition>
+        
+        <div class="toolpanel">
+            <a href="./" class="button"><i class="material-icons home">home</i></a>
+              <template v-if="old_width != 0">
+                  <div class="button"> 
+                    <i class="material-icons cloud_upload">cloud_upload</i>
+                    <input type="file" style="opacity: 0.0; position: absolute; top:0; left: 70px; bottom: 0; right:0; width: 70px; height:70px;" v-on:change="onFileSelected"/>
+                  </div>
+                  <div class="button" v-on:click="submitdata" ><i class="material-icons cloud_download">cloud_download</i></div>
+
+
+                  <div class="empty_block"></div>
+
+                  <div class="button" v-on:mousedown.prevent="zoom(width / 10)" v-on:keyup.shift="lol" ><i class="material-icons zoom_in">zoom_in</i></div>
+                  <div class="button" v-on:click="zoom(-width / 10)" ><i class="material-icons zoom_out">zoom_out</i></div>
+                  <div class="button" v-on:click="restPos" ><i class="material-icons cached">cached</i></div>
+                  <div v-if="width / old_width == 1" class="button" v-on:click="restSize(2)" ><b>1:1</b></div>
+                  <div v-else-if="width / old_width == 0.5" class="button" v-on:click="restSize(0.5)" ><b>1:2</b></div>
+                  <div v-else-if="width / old_width == 2" class="button" v-on:click="restSize(1)" ><b>2:1</b></div>
+                  <div v-else-if="width / old_width >= 1" class="button" v-on:click="restSize(1)" ><b>{{Math.round(width / old_width)}}:1</b></div>
+                  <div v-else class="button" v-on:click="restSize(1)" ><b>1:{{Math.round(old_width/width)}}</b></div>
+
+                  <div class="empty_block"></div>
+
+                  <div v-if="mode == 'transform'" class="button_sel button" v-on:click="switchMode('transform')" ><i class="material-icons transform">transform</i></div>
+                  <div v-else class="button" v-on:click="switchMode('transform')" ><i class="material-icons transform">transform</i></div>
+
+                  <div v-if="mode == 'draw'" class="button_sel button" v-on:click="switchMode('draw')" ><i class="material-icons highlight_alt">highlight_alt</i></div>
+                  <div v-else class="button" v-on:click="switchMode('draw')" ><i class="material-icons highlight_alt">highlight_alt</i></div>
+
+                  <div v-if="mode == 'edit'" class="button_sel button" v-on:click="switchMode('edit')" ><i class="material-icons edit">edit</i></div>
+                  <div v-else class="button" v-on:click="switchMode('edit')" ><i class="material-icons edit">edit</i></div>
+
+
+                  <!-- <div class="textonpanel">Size: {{Math.round(width / old_width * 100)}}%</div> -->
+                  
+                  
+                  
+                  
+                  
+              </template>
+              <template v-else>
+                  <div class="button"> 
+                    <i class="material-icons cloud_upload">cloud_upload</i>
+                    <input type="file" style="opacity: 0.0; position: absolute; top:0; left: 70px; bottom: 0; right:0; width: 70px; height:70px;" v-on:change="onFileSelected"/>
+                  </div>
+                  <div class="button_na"><i class="material-icons cloud_download">cloud_download</i></div>
+                  <div class="empty_block"></div>
+                  <div class="button_na" ><i class="material-icons zoom_in">zoom_in</i></div>
+                  <div class="button_na" ><i class="material-icons zoom_out">zoom_out</i></div>
+                  <div class="button_na" ><i class="material-icons cached">cached</i></div>
+                  <div class="button_na" ><b>1:2</b></div>
+                  <div class="empty_block"></div>
+                  <div class="button_na" ><i class="material-icons transform">transform</i></div>
+                  <div class="button_na" ><i class="material-icons highlight_alt">highlight_alt</i></div>
+                  <div class="button_na" ><i class="material-icons edit">edit</i></div>
+              </template>
+                  <div class="empty_block"></div>
+                  <div class="button" v-on:click="SetClassName"><div>classname: {{default_class_name}}</div> </div>
+                  <div class="button" v-on:click="SetDepth"><div>depth: {{depth}}</div> </div>
+                  <div class="button" v-on:click="SetSegmented"><div>segmented: {{segmented}}</div> </div>
+                  <!-- <div class="empty"></div> -->
+                  <div class="empty_block"></div>
+                  <div v-if="blur_img" class="button" v-on:click="SetBlur" ><i class="material-icons blur_on">blur_on</i></div>
+                  <div v-else class="button" v-on:click="SetBlur" ><i class="material-icons blur_off">blur_off</i></div>
+                  <div class="button">
+                    <input type="color" id="primary_color" class="field-radio" value="#9aff8d">
+                  </div>
+                  <div v-if="rulerBool" class="button" v-on:click="SetRulerBool" ><i class="material-icons border_inner">border_inner</i></div>
+                  <div v-else class="button" v-on:click="SetRulerBool" ><i class="material-icons border_clear">border_clear</i></div>
+                  <div class="empty_block"></div>
+                  <div class="button" v-on:click="debugSw" ><i class="material-icons bug_report">bug_report</i></div>
+                  <div class="textonpanel">Size: {{Math.round(width / old_width * 100)}}</div>
+              <template v-if="old_width != 0">
+                <div>
+                    <div v-if="mode == 'draw'" class="textonpanel">X: {{(Math.round(localpos.left* (old_width / width))) + 1}} Y: {{(Math.round(localpos.top* (old_width / width))) + 1}}</div>
+                    <div v-else class="textonpanel">X: {{Math.round(xPos, 2) + 1}} Y: {{Math.round(yPos, 2) + 1}} </div>
+                    <div class="textonpanel">Mode: {{mode}}</div>
+                    <div class="textonpanel">zigorewslike@gmail.com</div>
+                </div>
+              </template>
+              
+          </div>
+          <div>
+              <transition name="fade">
+              <div v-show="mode == 'edit'" class="borderboxTool">
+                  <div>
+                      <table>
+                          <h2 style="text-align: center;margin-top: 0px;margin-bottom: 5px;">Properties</h2>
+                          <tr>
+                              <td>Index: </td>
+                              <td><input type="number" name="text_index" id="prop_text_index" readonly></td>
+                          </tr>
+                          <tr>
+                              <td>Class name: </td>
+                              <td><input type="text" name="" id="prop_class_name" v-on:change="saveEdit"></td>
+                          </tr>
+                          <tr>
+                              <td>Xmin: </td>
+                              <td><input type="number" name="" id="prop_xmin" v-on:change="saveEdit"></td>
+                          </tr>
+                          <tr>
+                              <td>Xmax: </td>
+                              <td><input type="number" name="" id="prop_xmax" v-on:change="saveEdit"></td>
+                          </tr>
+                          <tr>
+                              <td>Ymin: </td>
+                              <td><input type="number" name="" id="prop_ymin" v-on:change="saveEdit"></td>
+                          </tr>
+                          <tr>
+                              <td>Ymax: </td>
+                              <td><input type="number" name="" id="prop_ymax" v-on:change="saveEdit"></td>
+                          </tr>
+                      </table>
+                      <table style="width: 100%; text-align:center">
+                          <tr>
+                              <td><input calss="btn" type="button" value="Close properties" v-on:click="switchMode('draw')"></td>
+                              <td><input calss="btn" type="button" value="Delete bbox" v-on:click="deleteBox"></td>
+                          </tr>
+                      </table>
+                      <center  v-if="divs_data_exp.data != []"><input calss="btn" type="button" value="Download XML file" v-on:click="submitdata"></center>
+    
+                  </div>
+              </div>
+              </transition>  
+              <div class="borderbox" id="borderbox">
+                  <div v-if="mode == 'transform'" id="imgBox" class="imgBox" :style="[pos]" v-on:mousemove="setPosXY" v-on:mousedown="posOn" v-on:mouseup="posOff" v-on:mouseleave="mouseOver">
+                      <!--img :src="base64Img" width=500px :style="pos" @mousemove="setPosXY"/-->
+                      <div v-for="stylee in divs.styleNames" class="bbox" :style="stylee.style" :key="stylee.index"></div>
+                  </div>
+                  <div v-if="mode == 'draw'" class="imgBox" id="imgBox" :style="[pos]" v-on:mousemove="setDraw" v-on:mousedown="drawOn" v-on:mouseup="drawOff">
+                      <div v-for="(stylee, index) in divs.styleNames" class="bbox" :style="stylee.style" :key="stylee.index">{{divs.styleNames[index].classname}}</div>
+    
+                  </div>
+                  <div v-if="mode == 'edit'" class="imgBox editing" id="imgBox" :style="[pos]">
+                      <div v-for="(stylee, index) in divs.styleNames" class="bbox editing" :style="stylee.style" v-on:mousedown="editboxClick(index)" :key="stylee.index">{{index}}</div>
+                  </div>
+                  <div v-if="rulerBool == true" class="lineHor" :style="rulerY"></div>
+                  <div v-if="rulerBool == true"class="lineVert" :style="rulerX"></div>
+              
+              </div>
+          </div>
+    </div>
+
+    <script src="static/app.js"></script>
+{% endverbatim %}
+
+</body>
+</html>

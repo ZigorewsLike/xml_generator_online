@@ -1,0 +1,211 @@
+.borderbox{
+    width: 100%;
+    display:inline;
+    height: 88vh;
+    float:left;
+    -border: 4px solid #0f1817;
+    position: relative;
+    overflow:hidden;
+    background-color:#d6ddff;
+}
+.borderboxTool{
+    padding: 10px;
+    width:240px;
+    border: 2px dashed #898dc2;
+    position: absolute;
+    float: right;
+    background-color:#f1f3ff;
+    z-index: 999999;
+    left: calc(100% - 274px);
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+.toolpanel{
+    -width: 100%;
+    -border: 4px solid #91abff ;
+    background-color:#97beff;
+    padding-top: 10px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.89);
+    font-family: 'Roboto Slab', serif;
+}
+.button{
+    display: table-cell;
+    min-width:50px;
+    height: 50px;
+    border: 1px solid #95bdff ;
+    border-top: 2px solid #6da4ff ;
+    border-bottom: 2px solid #6ba3ff ;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 19pt;
+    text-decoration:none;
+    margin-bottom: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+
+    border-radius: 3px;
+
+    transition: 0.1s ease-in;
+
+    background-color: #eaedff;
+}
+.button_sel{
+    text-decoration: underline;
+    border: 2px solid #273c9c ;
+}
+.button_na{
+    display: table-cell;
+    min-width:50px;
+    height: 50px;
+    border: 1px solid #6984ff ;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 19pt;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    color: gray;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+
+    border-radius: 3px;
+
+    background-color: #eaedff;
+
+}
+.button:hover{
+    color: #411f8f;
+    background-color: #dbe1ff;
+}
+.button:active{
+    background-color: #bdc6f1;
+}
+.textonpanel{
+    display: table-cell;
+    padding-left: 10px;
+    text-align: center;
+    vertical-align: middle;
+    width: 200px;
+    -border: 4px solid #333333 ;
+    height: 40px;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    
+}
+.imgBox{
+    outline: 1px solid rgb(140, 140, 207);
+    display: block;
+    -position: 'fixed';
+    -image-rendering: -webkit-optimize-contrast;
+    -image-rendering: crisp-edges;
+}
+.bbox{
+    border: 2px dotted #9aff8d;
+    -filter: invert(100%);
+    -border: 2px dotted #ff4444;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    font:menu;
+    color: black;
+    font-size: 16pt;
+    text-align: center;
+    text-shadow:
+     0px  0px 0 #fff,
+    -1px -1px 0 #fff,  
+     1px -1px 0 #fff,
+    -1px  1px 0 #fff,
+     1px  1px 0 #fff;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+.editing{
+   cursor: default; 
+}
+.empty{
+    width: 100%;
+}
+body{
+    color: #0c0830;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+}
+input[type=button]{
+    background-color: #f1f6ff;
+    border: 1px solid rgb(133, 133, 255);
+    -border-radius: 0px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+
+}
+input[type=button]:hover{
+    background-color: #c5d7ff;
+}
+input[type=button]:active{
+    background-color: #93b9ff;
+}
+
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+}
+.empty_block{
+    display: table-cell;
+    min-width:20px;
+    height: 50px;
+    -border-left: 1px solid #6984ff ;
+    -border-right: 1px solid #6984ff ;
+    -border-radius: 15%;
+}
+#primary_color{
+    -border-radius: 100%;
+    height: 35px;
+    width: 35px;
+    -border: none;
+    outline: none;
+    border-right: 5px dashed #6984ff ;
+    -webkit-appearance: none;
+    text-align: center;
+}
+#primary_color::-webkit-color-swatch-wrapper {
+    padding: 0;	
+}
+#primary_color::-webkit-color-swatch {
+    -border: none;
+    -border-radius: 100%;
+}
+.lineHor{
+    position: absolute;
+    border: 1px dashed rgb(90, 90, 90);
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.932);
+    width: 100%;
+    height: 0px;
+    pointer-events: none;
+}
+.lineVert{
+    position: absolute;
+    border: 1px dashed rgb(90, 90, 90);
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.932);
+    width: 0px;
+    height: 100%;
+    pointer-events: none;
+}
