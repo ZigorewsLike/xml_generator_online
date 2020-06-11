@@ -80,13 +80,17 @@
 
                   <div v-if="mode == 'transform'" class="button_sel button" v-on:click="switchMode('transform')" ><i class="material-icons transform">transform</i></div>
                   <div v-else class="button" v-on:click="switchMode('transform')" ><i class="material-icons transform">transform</i></div>
-
+                <template v-if="!downloadingg">
                   <div v-if="mode == 'draw'" class="button_sel button" v-on:click="switchMode('draw')" ><i class="material-icons highlight_alt">highlight_alt</i></div>
                   <div v-else class="button" v-on:click="switchMode('draw')" ><i class="material-icons highlight_alt">highlight_alt</i></div>
 
                   <div v-if="mode == 'edit'" class="button_sel button" v-on:click="switchMode('edit')" ><i class="material-icons edit">edit</i></div>
                   <div v-else class="button" v-on:click="switchMode('edit')" ><i class="material-icons edit">edit</i></div>
-
+                </template>
+                <template v-else>
+                    <div class="button_na" ><i class="material-icons highlight_alt">highlight_alt</i></div>
+                    <div class="button_na" ><i class="material-icons edit">edit</i></div>
+                </template>
                   <!-- <div class="textonpanel">Size: {{Math.round(width / old_width * 100)}}%</div> -->     
                   
               </template>

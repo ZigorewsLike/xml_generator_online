@@ -472,6 +472,7 @@ new Vue({
             alert("Ctrl+z");
         },
         async submitdata(){
+            this.mode = 'transform';
             this.downloadingg = true;
             this.divs_data_exp.length = 0;
             for(var ind in this.divs.styleNames){
