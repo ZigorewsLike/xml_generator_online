@@ -10,6 +10,7 @@ new Vue({
             dbg:{
                 step:0
             },
+            downloadingg: false,
             dft_class: 'name',
             filename: '',
             selctedFile: null,
@@ -471,6 +472,7 @@ new Vue({
             alert("Ctrl+z");
         },
         async submitdata(){
+            this.downloadingg = true;
             this.divs_data_exp.length = 0;
             for(var ind in this.divs.styleNames){
               if(this.divs_data_exp.length == 0){
@@ -551,7 +553,7 @@ new Vue({
             console.log(bbox_post)
 
             console.log('Div.stylenames -', this.divs.styleNames)
-
+            this.downloadingg = false;
             return location.href = '/download'+this.filename+this.keysession
         },
         SetDepth(){

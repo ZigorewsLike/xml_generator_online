@@ -55,12 +55,15 @@
         <div class="toolpanel">
             <a href="./" class="button"><i class="material-icons home">home</i></a>
               <template v-if="old_width != 0">
-                  <div class="button"> 
+                  <div v-if="!downloadingg" class="button"> 
                     <i class="material-icons cloud_upload">cloud_upload</i>
                     <input type="file" style="opacity: 0.0; position: absolute; top:0; left: 70px; bottom: 0; right:0; width: 70px; height:70px;" v-on:change="onFileSelected"/>
                   </div>
-                  <div class="button" v-on:click="submitdata" ><i class="material-icons cloud_download">cloud_download</i></div>
-
+                  <div v-else class="button_na"> 
+                    <i class="material-icons cloud_upload">cloud_upload</i>
+                  </div>
+                  <div v-if="!downloadingg" class="button" v-on:click="submitdata" ><i class="material-icons cloud_download">cloud_download</i></div>
+                  <div v-else class="button"><img width="40px" src="static/source/preloader.svg"></div>
 
                   <div class="empty_block"></div>
 
