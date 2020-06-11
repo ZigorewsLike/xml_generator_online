@@ -319,8 +319,8 @@ new Vue({
             sub -= this.new_width * this.scale;
             this.pos.width = this.width + 'px';
             this.pos.height = this.height + 'px';
-            this.xPos -= num/2;
-            this.yPos += sub/2;
+            this.xPos -= num/((this.width) / (-this.xPos + (document.getElementById("app").clientWidth / 2)));
+            this.yPos += sub/((this.height) / (-this.yPos + (document.getElementById("app").clientHeight*2)));
 
             for (ind in this.divs.styleNames){
                 this.divs.styleNames[ind].xmin = this.divs.styleNames[ind].xmin * (this.new_width / this.width);
@@ -346,8 +346,8 @@ new Vue({
             var n_height = this.new_width * this.scale;
             var n_width = this.new_width
 
-            this.xPos += (this.width - (this.old_width / scl)) / 2;
-            this.yPos += (this.width*this.scale - (this.old_width*this.scale / scl)) / 2;
+            this.xPos += (this.width - (this.old_width / scl)) / ((this.width) / (-this.xPos + (document.getElementById("app").clientWidth / 2)));
+            this.yPos += (this.width*this.scale - (this.old_width*this.scale / scl)) / ((this.height) / (-this.yPos + (document.getElementById("app").clientHeight*2)));
             
             this.new_width = this.old_width / scl;
             this.new_height = this.old_width*this.scale / scl; 
