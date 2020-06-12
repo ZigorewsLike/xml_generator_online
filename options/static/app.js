@@ -153,6 +153,11 @@ new Vue({
                 this.height = this.base64Img.naturalHeight / 2;
                 this.new_width = this.width;
                 this.new_height = this.height;
+
+                this.xPos = (document.getElementById("app").clientWidth / 2) - (this.width / 2);
+                this.yPos = (document.getElementById("app").clientHeight / 2);
+                this.pos.left = '0px';
+                this.pos.top = '0px';
                 
 
                 this.pos.backgroundImage = 'url(' + this.base64Img.src + ')';
@@ -215,11 +220,6 @@ new Vue({
             }, 2000)
         },
         async onFileSelected(event){
-            this.xPos = 10;
-            this.yPos = 10;
-            this.pos.left = '10px';
-            this.pos.top = '10px';
-
             console.log(event);
             //this.old_width = -100;
             this.selctedFile = event.target.files[0];
