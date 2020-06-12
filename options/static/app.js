@@ -106,7 +106,7 @@ new Vue({
             if (this.keybind){
                 const keyName = event.key;
                 const keyCode = event.keyCode;
-                console.log('keypress event\n\n' + 'key: ' + keyName);
+                //console.log('keypress event\n\n' + 'key: ' + keyName);
                 // if (keyName == 'd'){
                 //     this.mode = 'draw';
                 // }else if (keyName == 'e'){
@@ -336,10 +336,10 @@ new Vue({
             //this.pos.left = this.xPos + 'px';
         },
         restPos(){
-            this.xPos = 0;
-            this.yPos = 0;
-            this.pos.left = '0px';
-            this.pos.top = '0px';
+            this.xPos = (document.getElementById("app").clientWidth / 2) - (this.width / 2);
+            this.yPos = (document.getElementById("app").clientHeight / 2);
+            //this.pos.left = '0px';
+            //this.pos.top = '0px';
         },
         restSize(scl){
             var n_height = this.new_width * this.scale;
@@ -455,7 +455,6 @@ new Vue({
             console.log(this.divs.styleNames[index].classname)
             this.divs.styleNames[index].style.width = this.divs.styleNames[index].xmax - this.divs.styleNames[index].xmin + 'px';
             this.divs.styleNames[index].style.height = this.divs.styleNames[index].ymax - this.divs.styleNames[index].ymin + 'px';
-            
         },
         deleteBox(){
             if(this.divs.length > 0){
