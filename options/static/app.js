@@ -448,8 +448,7 @@ new Vue({
             for (ind in this.divs.styleNames){
                 this.divs.styleNames[ind].style.border = '3px dotted ' + this.colorBorder;
             }
-            this.divs.styleNames[index].style.border = '3px dotted #ff4444';
-            
+            this.divs.styleNames[index].style.border = '3px dotted #ff4444';     
 
         },
         saveEdit(){
