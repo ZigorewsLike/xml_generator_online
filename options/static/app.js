@@ -158,7 +158,6 @@ new Vue({
                 this.yPos = (document.getElementById("app").clientHeight / 2);
                 this.pos.left = '0px';
                 this.pos.top = '0px';
-                
 
                 this.pos.backgroundImage = 'url(' + this.base64Img.src + ')';
                 this.pos.width = this.width + 'px';
