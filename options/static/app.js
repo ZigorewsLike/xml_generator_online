@@ -95,6 +95,9 @@ new Vue({
             keysession: 0,
             colorBorder: '#9aff8d',
             deletethis: false,
+            canv: {
+                height: 0 + 'px',
+            }
         }
     },
     created: function(){
@@ -155,7 +158,7 @@ new Vue({
                 this.new_height = this.height;
 
                 this.xPos = (document.getElementById("app").clientWidth / 2) - (this.width / 2);
-                this.yPos = (document.getElementById("app").clientHeight / 2);
+                this.yPos = (document.getElementById("borderbox").clientHeight/2) - (this.height / 2);
                 this.pos.left = '0px';
                 this.pos.top = '0px';
 
@@ -176,6 +179,13 @@ new Vue({
             }
             if(_catch = true){
                 this.colorBorder = colorButton.value;
+            }
+
+            var clH = document.documentElement.clientHeight;
+            console.log(clH);
+            var l = clH - document.getElementById("toolpanel").clientHeight - 25;
+            if (document.getElementById("borderbox").clientHeight != l){
+                this.canv.height = l + 'px';
             }
             
         })
@@ -319,7 +329,7 @@ new Vue({
             this.pos.width = this.width + 'px';
             this.pos.height = this.height + 'px';
             this.xPos -= num/((this.width) / (-this.xPos + (document.getElementById("app").clientWidth / 2)));
-            this.yPos += sub/((this.height) / (-this.yPos + (document.getElementById("app").clientHeight*2)));
+            this.yPos += sub/((this.height) / (-this.yPos + (document.getElementById("borderbox").clientHeight/2)));
 
             for (ind in this.divs.styleNames){
                 this.divs.styleNames[ind].xmin = this.divs.styleNames[ind].xmin * (this.new_width / this.width);
@@ -337,7 +347,7 @@ new Vue({
         },
         restPos(){
             this.xPos = (document.getElementById("app").clientWidth / 2) - (this.width / 2);
-            this.yPos = (document.getElementById("app").clientHeight / 2);
+            this.yPos = (document.getElementById("borderbox").clientHeight/2) - (this.height / 2);
             //this.pos.left = '0px';
             //this.pos.top = '0px';
         },
@@ -346,7 +356,7 @@ new Vue({
             var n_width = this.new_width
 
             this.xPos += (this.width - (this.old_width / scl)) / ((this.width) / (-this.xPos + (document.getElementById("app").clientWidth / 2)));
-            this.yPos += (this.width*this.scale - (this.old_width*this.scale / scl)) / ((this.height) / (-this.yPos + (document.getElementById("app").clientHeight*2)));
+            this.yPos += (this.width*this.scale - (this.old_width*this.scale / scl)) / ((this.height) / (-this.yPos + (document.getElementById("borderbox").clientHeight/2)));
             
             this.new_width = this.old_width / scl;
             this.new_height = this.old_width*this.scale / scl; 
