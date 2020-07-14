@@ -441,10 +441,10 @@ new Vue({
             this.mode = 'edit';
             document.getElementById('prop_text_index').value = index;
             document.getElementById('prop_class_name').value = this.divs.styleNames[index].classname;
-            document.getElementById('prop_xmin').value = Math.trunc(this.divs.styleNames[index].xmin);
-            document.getElementById('prop_xmax').value = Math.trunc(this.divs.styleNames[index].xmax);
-            document.getElementById('prop_ymin').value = Math.trunc(this.divs.styleNames[index].ymin);
-            document.getElementById('prop_ymax').value = Math.trunc( this.divs.styleNames[index].ymax);
+            document.getElementById('prop_xmin').value = Math.trunc(this.divs.styleNames[index].xmin  / (this.width / this.old_width));
+            document.getElementById('prop_xmax').value = Math.trunc(this.divs.styleNames[index].xmax  / (this.width / this.old_width));
+            document.getElementById('prop_ymin').value = Math.trunc(this.divs.styleNames[index].ymin  / (this.width / this.old_width));
+            document.getElementById('prop_ymax').value = Math.trunc( this.divs.styleNames[index].ymax / (this.width / this.old_width));
             for (ind in this.divs.styleNames){
                 this.divs.styleNames[ind].style.border = '3px dotted ' + this.colorBorder;
             }
@@ -454,10 +454,10 @@ new Vue({
         saveEdit(){
             var index = document.getElementById('prop_text_index').value;
             this.divs.styleNames[index].classname = document.getElementById('prop_class_name').value;
-            this.divs.styleNames[index].xmin = document.getElementById('prop_xmin').value;
-            this.divs.styleNames[index].xmax = document.getElementById('prop_xmax').value;
-            this.divs.styleNames[index].ymin = document.getElementById('prop_ymin').value;
-            this.divs.styleNames[index].ymax = document.getElementById('prop_ymax').value;
+            this.divs.styleNames[index].xmin = document.getElementById('prop_xmin').value * (this.width / this.old_width);
+            this.divs.styleNames[index].xmax = document.getElementById('prop_xmax').value * (this.width / this.old_width);
+            this.divs.styleNames[index].ymin = document.getElementById('prop_ymin').value * (this.width / this.old_width);
+            this.divs.styleNames[index].ymax = document.getElementById('prop_ymax').value * (this.width / this.old_width);
             
             this.divs.styleNames[index].style.left = this.divs.styleNames[index].xmin + 'px';
             this.divs.styleNames[index].style.top = this.divs.styleNames[index].ymin + 'px';
