@@ -485,20 +485,20 @@ new Vue({
             for(var ind in this.divs.styleNames){
               if(this.divs_data_exp.length == 0){
                 this.divs_data_exp.data = [{ 
-                  xmin: Math.round(this.divs.styleNames[ind].xmin),
-                  xmax: Math.round(this.divs.styleNames[ind].xmax),
-                  ymin: Math.round(this.divs.styleNames[ind].ymin),
-                  ymax: Math.round(this.divs.styleNames[ind].ymax),
+                  xmin: Math.round(this.divs.styleNames[ind].xmin / (this.width / this.old_width)),
+                  xmax: Math.round(this.divs.styleNames[ind].xmax / (this.width / this.old_width)),
+                  ymin: Math.round(this.divs.styleNames[ind].ymin / (this.width / this.old_width)),
+                  ymax: Math.round(this.divs.styleNames[ind].ymax / (this.width / this.old_width)),
                   classname: this.divs.styleNames[ind].classname,
                   keysession: this.keysession,
                 }];
                 this.divs_data_exp.length = 1;
               }else{
                 this.divs_data_exp.data.push({ 
-                  xmin: Math.round(this.divs.styleNames[ind].xmin),
-                  xmax: Math.round(this.divs.styleNames[ind].xmax),
-                  ymin: Math.round(this.divs.styleNames[ind].ymin),
-                  ymax: Math.round(this.divs.styleNames[ind].ymax),
+                  xmin: Math.round(this.divs.styleNames[ind].xmin / (this.width / this.old_width)),
+                  xmax: Math.round(this.divs.styleNames[ind].xmax / (this.width / this.old_width)),
+                  ymin: Math.round(this.divs.styleNames[ind].ymin / (this.width / this.old_width)),
+                  ymax: Math.round(this.divs.styleNames[ind].ymax / (this.width / this.old_width)),
                   classname: this.divs.styleNames[ind].classname,
                   keysession: this.keysession,
                 });
